@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevConnectDataService.Controller
 {
-	[Route("api/user")]
-	[ApiController]
+	[Route("api/[controller]")]
 	internal class UserController : ControllerBase
 	{
 		private IUserService _userService;
@@ -23,8 +22,8 @@ namespace DevConnectDataService.Controller
 		[HttpGet]
 		public async Task<IActionResult> GetUsers(UserListQueryParameters userListQueryParamter)
 		{
-			this._userService.GetUsers(userListQueryParamter);
-			return null;
+			await this._userService.GetUsers(userListQueryParamter);
+			return new ObjectResult(null);
 		}
 	}
 }

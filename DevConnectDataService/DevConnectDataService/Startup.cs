@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using DevConnectDataService.BusinessLogic;
+using DevConnectDataService.BusinessLogic.QueryParamters;
 using DevConnectDataService.DataAccess;
 using DevConnectDataService.DataAccess.CosmosDBService;
 using DevConnectDataService.DataAccess.Documents;
@@ -28,10 +29,14 @@ namespace DevConnectDataService
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
-			services.AddScoped<IUserService, UserService>();
-			services.AddSingleton<IUserDataAdapter, UserDataAdapter>();
 
 			services.AddSingleton<ICosmosDbService<BaseDocument<Guid>, Guid, BaseQueryParameters>>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+			services.AddScoped<IUserService, UserService>();
+			services.AddSingleton<IUserDataAdapter>((serviceProvider) =>
+			{
+				var collection = serviceProvider.GetService<ICosmosDbService<UserDocument, Guid, UserListQueryParameters>>();
+				return new UserDataAdapter(collection);
+			});
 
 		}
 
@@ -47,10 +52,8 @@ namespace DevConnectDataService
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapGet("/", async context =>
-				{
-					await context.Response.WriteAsync("Hello World!");
-				});
+				endpoints.MapControllers();
+
 			});
 		}
 
@@ -61,7 +64,7 @@ namespace DevConnectDataService
 			string account = configurationSection.GetSection("Account").Value;
 			string key = configurationSection.GetSection("Key").Value;
 			Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, key);
-			CosmosDbService<BaseDocument<Guid>,Guid, BaseQueryParameters> cosmosDbService = new CosmosDbService<BaseDocument<Guid>, Guid, BaseQueryParameters>(client, databaseName, containerName);
+			CosmosDbService<BaseDocument<Guid>, Guid, BaseQueryParameters> cosmosDbService = new CosmosDbService<BaseDocument<Guid>, Guid, BaseQueryParameters>(client, databaseName, containerName);
 			Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
 			await database.Database.CreateContainerIfNotExistsAsync(containerName, "/techid");
 

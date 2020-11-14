@@ -1,5 +1,6 @@
 ﻿using DevConnectDataService.BusinessLogic.QueryParamters;
 using DevConnectDataService.DataAccess;
+using DevConnectDataService.DataAccess.CosmosDBService;
 using DevConnectDataService.DataAccess.Documents;
 using DevConnectDataService.Model;
 using DevConnectDataService.Services;
