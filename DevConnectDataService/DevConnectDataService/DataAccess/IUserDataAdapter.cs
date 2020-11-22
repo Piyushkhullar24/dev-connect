@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DevConnectDataService.DataAccess
 {
-	internal interface IUserDataAdapter : IBaseDataAdapter<UserDocument, Guid, UserListQueryParameters>
+	public interface IUserDataAdapter : IBaseDataAdapter<UserDocument, Guid, UserListQueryParameters>
 	{
 	}
 }

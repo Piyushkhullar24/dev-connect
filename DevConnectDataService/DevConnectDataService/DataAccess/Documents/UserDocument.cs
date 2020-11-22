@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DevConnectDataService.DataAccess.Documents
 {
-	internal class UserDocument : BaseGuidIdDocument
+	public class UserDocument : BaseGuidIdDocument
 	{
 		public UserDocument()
 		{

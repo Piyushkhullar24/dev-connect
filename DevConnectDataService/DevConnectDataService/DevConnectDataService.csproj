@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>70a6a2a8-ab32-4249-9868-bc3bbacea071</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,11 +11,16 @@
     <PackageReference Include="Microsoft.Azure.DocumentDB" Version="2.12.0" />
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.12.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DataAccess\CosmosDBService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DocumentDbRepository\DocumentDbRepository.csproj" />
   </ItemGroup>
 
 </Project>

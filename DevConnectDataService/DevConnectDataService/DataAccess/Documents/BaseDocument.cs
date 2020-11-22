@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DevConnectDataService.DataAccess.Documents
 {
-    internal class BaseDocument<T>
+    public class BaseDocument<T>
     {
         /// <summary>
         ///

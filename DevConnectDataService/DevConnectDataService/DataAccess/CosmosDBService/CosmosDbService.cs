@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DevConnectDataService.DataAccess.CosmosDBService
 {
-	internal class CosmosDbService<DocumentType, IdType, QueryParametersType> : ICosmosDbService<DocumentType, IdType, QueryParametersType>
+	public class CosmosDbService<DocumentType, IdType, QueryParametersType> : ICosmosDbService<DocumentType, IdType, QueryParametersType>
 where DocumentType : BaseDocument<IdType>
 where QueryParametersType : BaseQueryParameters
 	{

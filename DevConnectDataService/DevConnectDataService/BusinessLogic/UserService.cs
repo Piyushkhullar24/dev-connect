@@ -20,9 +20,9 @@ namespace DevConnectDataService.BusinessLogic
 			this._userDataAdapter = userDataAdapter;
 		}
 
-		public async Task GetUsers(UserListQueryParameters userListQueryParamter)
+		public async Task<PaginatedResult<UserDocument>> GetUsers(UserListQueryParameters userListQueryParamter)
 		{
-			var users =  await this._userDataAdapter.GetDocumentListAsync(userListQueryParamter);
+			return  await this._userDataAdapter.GetDocumentListAsync(userListQueryParamter);
 		}
 	}
 }

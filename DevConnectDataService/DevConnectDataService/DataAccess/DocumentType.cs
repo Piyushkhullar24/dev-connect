@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DevConnectDataService.DataAccess
 {
-    internal enum DocumentType
+    public enum DocumentType
     {
         VersionDocument = -1,
         None = 0,
