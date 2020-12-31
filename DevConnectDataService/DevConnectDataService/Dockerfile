@@ -7,15 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["DevConnectDataService/DevConnectDataService.csproj", "DevConnectDataService/"]
-COPY ["DocumentDbRepository/DocumentDbRepository.csproj", "DocumentDbRepository/"]
-RUN dotnet restore "DevConnectDataService/DevConnectDataService.csproj"
+COPY *.csproj /src
+RUN dotnet restore ./*.csproj 
 COPY . .
-WORKDIR "/src/DevConnectDataService"
-RUN dotnet build "DevConnectDataService.csproj" -c Release -o /app/build
+RUN dotnet build ./*.csproj -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DevConnectDataService.csproj" -c Release -o /app/publish
+RUN dotnet publish ./*.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
